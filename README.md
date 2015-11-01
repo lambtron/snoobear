@@ -1,8 +1,8 @@
 # Snoobear
 
-> Submit to multiple subreddits.
+> Easily queue submissions to multiple subreddits.
 
-Link.
+[Link](http://www.snoobear.co).
 
 ## License (MIT)
 
