@@ -9,8 +9,8 @@
     oauth: {
       type: 'implicit',
       key: 'ZMCcBVy-jqgrrA',
-      redirectUri: 'http://localhost:3000/',
-      scope: [ 'identity', 'read', 'subscribe', 'modconfig', 'submit' ]
+      redirectUri: 'http://www.snoobear.co/',
+      scope: [ 'submit' ]
     }
   });
 
