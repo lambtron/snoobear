@@ -5,7 +5,7 @@
    */
 
   var reddit = new Snoocore({
-    userAgent: 'Snoocore-examples@oauth-implicit',
+    userAgent: 'snoobear',
     oauth: {
       type: 'implicit',
       key: 'ZMCcBVy-jqgrrA',
