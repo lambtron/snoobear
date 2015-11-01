@@ -1,0 +1,47 @@
+#!/usr/bin/env node --harmony
+
+/**
+ * Module Dependencies
+ */
+
+var PORT = process.env.PORT || 3000;
+var koa = require('koa');
+var router = require('koa-route');
+var parser = require('koa-bodyparser');
+var logger = require('koa-logger');
+var serve = require('koa-static');
+
+/**
+ * Expose `app`
+ */
+
+exports = app = koa();
+
+/**
+ * Setup static directory.
+ */
+
+app.use(serve('client'));
+
+/**
+ * Mount bodyparser && logger
+ */
+
+app.use(parser());
+app.use(logger());
+
+/**
+ * Routes
+ */
+
+var routes = require('./lib/routes.js');
+app.use(router.get('/', routes.index));
+app.use(router.get('/redirect', routes.redirect));
+
+/**
+ * Listen on PORT
+ */
+
+app.listen(PORT);
+console.log('Magic happens on port ' + PORT);
+
