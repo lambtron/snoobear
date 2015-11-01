@@ -1,0 +1,28 @@
+{
+  "name": "snoobear",
+  "version": "0.0.1",
+  "description": "Submit to multiple subreddits.",
+  "main": "server.js",
+  "scripts": {
+    "test": "make test",
+    "start": "node --harmony ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lambtron/snoobear"
+  },
+  "author": "Andy Jiang",
+  "license": "MIT",
+  "dependencies": {
+    "co-views": "^2.1.0",
+    "duo": "^0.15.3",
+    "duo-myth": "^0.2.0",
+    "koa": "^1.0.0",
+    "koa-bodyparser": "^2.0.1",
+    "koa-logger": "^1.3.0",
+    "koa-route": "^2.4.2",
+    "koa-static": "^1.4.9",
+    "nodemon": "^1.7.1",
+    "swig": "^1.4.2"
+  }
+}
