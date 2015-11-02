@@ -10,6 +10,7 @@
       type: 'implicit',
       key: 'ZMCcBVy-jqgrrA',
       redirectUri: 'http://www.snoobear.co/',
+      // redirectUri: 'http://localhost:3000',
       scope: [ 'submit' ]
     }
   });
@@ -67,6 +68,8 @@
 
   document.getElementById('submit').addEventListener('click', function(e) {
     start(fields());
+    document.getElementsByClassName('Form')[0].classList.toggle('hide');
+    document.getElementsByClassName('Queued')[0].classList.toggle('hide');
   });
 
   /**
@@ -74,7 +77,61 @@
    */
 
   function redditSubmit(obj) {
-    reddit('api/submit').post(obj);
+    // add <li> to class ul.Subreddits
+    //
+    reddit('api/submit')
+      .post(obj)
+      .then(function() {
+        // Success!
+        var li = document.querySelector('li[data-subreddit="' + obj.sr + '"]');
+        li.innerText = '';
+        var sr = document.createElement('span');
+        sr.innerText = obj.sr;
+        var icon = document.createElement('span');
+        icon.className = 'glyphicon glyphicon-ok-sign pull-right';
+        li.appendChild(sr);
+        li.appendChild(icon);
+
+        var message = document.createElement('div');
+        message.className = 'text-success';
+        message.innerText = 'Success!';
+        li.appendChild(message);
+
+      }, function(error) {
+        var li = document.querySelector('li[data-subreddit="' + obj.sr + '"]');
+        li.innerText = '';
+        var sr = document.createElement('span');
+        sr.innerText = obj.sr;
+        var icon = document.createElement('span');
+        icon.className = 'glyphicon glyphicon-remove-sign pull-right';
+        li.appendChild(sr);
+        li.appendChild(icon);
+
+        var err = JSON.parse(error.body);
+        var message = document.createElement('div');
+        message.className = 'text-danger';
+        message.innerText = err.json.errors.join(' ')
+        li.appendChild(message);
+      });
+  }
+
+  /**
+   * Add subreddits in Queued.
+   */
+
+  function addSubreddits(arr) {
+    var ul = document.getElementsByClassName('Queued-subreddits')[0];
+    for (var i = 0; i < arr.length; i++) {
+      var li = document.createElement('li');
+      li.dataset.subreddit = arr[i];
+      var sr = document.createElement('span');
+      sr.innerText = arr[i];
+      var icon = document.createElement('span');
+      icon.className = 'glyphicon glyphicon-option-horizontal pull-right';
+      li.appendChild(sr);
+      li.appendChild(icon);
+      ul.appendChild(li);
+    }
   }
 
   /**
@@ -82,6 +139,7 @@
    */
 
   function start(fields) {
+    addSubreddits(fields.sr);
     if (window.Worker) {
       var timer = new Worker('/js/worker.js');
       timer.postMessage('start');
