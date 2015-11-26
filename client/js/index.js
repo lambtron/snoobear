@@ -70,6 +70,7 @@
     start(fields());
     document.getElementsByClassName('Form')[0].classList.toggle('hide');
     document.getElementsByClassName('Queued')[0].classList.toggle('hide');
+    warnOnClose();
   });
 
   /**
@@ -170,6 +171,19 @@
         });
       }, 3960000)
     }
+  }
+
+  /**
+   * Bind detect close.
+   */
+
+  function warnOnClose() {
+    window.addEventListener("beforeunload", function (e) {
+      var confirmationMessage = "Closing this tab will cease any further queued submissions to reddit. Abandon queued submissions?";
+
+      (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+      return confirmationMessage;                            //Webkit, Safari, Chrome
+    });
   }
 
 })();
