@@ -10,7 +10,7 @@
       type: 'implicit',
       key: 'ZMCcBVy-jqgrrA',
       redirectUri: 'http://www.snoobear.co/',
-      // redirectUri: 'http://localhost:3000',
+      // redirectUri: 'http://localhost:3000/',
       scope: [ 'submit' ]
     }
   });
@@ -78,7 +78,7 @@
 
   function redditSubmit(obj) {
     // add <li> to class ul.Subreddits
-    //
+
     reddit('api/submit')
       .post(obj)
       .then(function() {
