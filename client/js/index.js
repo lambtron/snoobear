@@ -94,7 +94,7 @@
 
         var message = document.createElement('div');
         message.className = 'text-success';
-        message.innerText = 'Success!';
+        message.innerText = 'Success! Posted on ' + moment().format('h:mma');
         li.appendChild(message);
 
       }, function(error) {
@@ -144,6 +144,7 @@
       var timer = new Worker('/js/worker.js');
       timer.postMessage('start');
       timer.addEventListener('message', function(e) {
+        console.log('Receiving message from background worker.');
         if (fields.sr.length === 0) timer.terminate();
         redditSubmit({
           sr: fields.sr.pop(),
